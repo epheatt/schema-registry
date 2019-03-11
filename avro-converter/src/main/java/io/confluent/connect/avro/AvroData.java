@@ -807,7 +807,7 @@ public class AvroData {
           baseSchema =
               org.apache.avro.SchemaBuilder.builder().enumeration(
                   schema.parameters().get(AVRO_TYPE_ENUM))
-                  .doc(schema.parameters().get(CONNECT_ENUM_DOC_PROP))
+                  .doc(schema.parameters().getOrDefault(CONNECT_ENUM_DOC_PROP,"null"))
                   .symbols(symbols.toArray(new String[symbols.size()]));
         } else {
           baseSchema = org.apache.avro.SchemaBuilder.builder().stringType();
@@ -877,7 +877,7 @@ public class AvroData {
           baseSchema = org.apache.avro.Schema.createUnion(unionSchemas);
         } else {
           String doc = schema.parameters() != null
-                       ? schema.parameters().get(CONNECT_RECORD_DOC_PROP)
+                       ? schema.parameters().getOrDefault(CONNECT_RECORD_DOC_PROP,"null")
                        : null;
           baseSchema = org.apache.avro.Schema.createRecord(
               name != null ? name : DEFAULT_SCHEMA_NAME, doc, namespace, false);
